@@ -23,6 +23,7 @@
       - 3100
     networks:
       - name: "{{ docker_network_name }}"
+      - name: "bridge"
     log_driver: "awslogs"
     log_options:
       awslogs-region: "{{ cloudwatch_region }}"
@@ -32,3 +33,7 @@
       VIRTUAL_HOST: "{{ domain_name }}"
       LETSENCRYPT_HOST: "{{ domain_name }}"
       VIRTUAL_PORT: "3100"
+
+- name: Restart proxy
+  shell: 
+    cmd: docker restart proxy
