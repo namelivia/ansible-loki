@@ -5,6 +5,8 @@
       - application_name is defined
       - domain_name is defined
       - docker_network_name is defined
+      - cloudwatch_region is defined
+      - cloudwatch_log_group is defined
 
 - name: Create the dockernetwork
   docker_network:
@@ -24,6 +26,11 @@
     networks:
       - name: "{{ docker_network_name }}"
       - name: "bridge"
+    log_driver: "awslogs"
+    log_options:
+      awslogs-region: "{{ cloudwatch_region }}"
+      awslogs-group: "{{ cloudwatch_log_group }}"
+      awslogs-stream: "{{ application_name }}-{{ inventory_hostname }}"
     env:
       VIRTUAL_HOST: "{{ domain_name }}"
       LETSENCRYPT_HOST: "{{ domain_name }}"
