@@ -11,5 +11,3 @@ collections:
 roles:
   - src: https://github.com/namelivia/ansible-loki
 ```
-
- - `loki_url` Loki endpoint to send logs.
