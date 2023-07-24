@@ -3,10 +3,11 @@
   assert:
     that:
       - application_name is defined
-      - domain_name is defined
+      - host_port is defined
       - docker_network_name is defined
       - cloudwatch_region is defined
       - cloudwatch_log_group is defined
+      - host_port is defined
 
 - name: Create the dockernetwork
   docker_network:
@@ -22,7 +23,7 @@
     exposed_ports:
       - 3100
     published_ports:
-      - "0.0.0.0:3100:3100"  # map the port to the host's 3100 port
+      - "0.0.0.0:{{ host_port }}:3100"
     networks:
       - name: "{{ docker_network_name }}"
       - name: "bridge"
@@ -32,10 +33,6 @@
       awslogs-region: "{{ cloudwatch_region }}"
       awslogs-group: "{{ cloudwatch_log_group }}"
       awslogs-stream: "{{ application_name }}-{{ inventory_hostname }}"
-    env:
-      VIRTUAL_HOST: "{{ domain_name }}"
-      LETSENCRYPT_HOST: "{{ domain_name }}"
-      VIRTUAL_PORT: "3100"
 
 - name: Restart proxy
   shell: 

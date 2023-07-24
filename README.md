@@ -14,3 +14,4 @@ roles:
 
  - `cloudwatch_region` Cloudwatch region to send the logs to.
  - `cloudwatch_log_group` Cloudwatch log group to send the logs to.
+ - `host_port` Port to be mapped in the host machine.
