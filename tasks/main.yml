@@ -26,14 +26,9 @@
       - "0.0.0.0:{{ host_port }}:3100"
     networks:
       - name: "{{ docker_network_name }}"
-      - name: "bridge"
       - name: "grafana_network"
     log_driver: "awslogs"
     log_options:
       awslogs-region: "{{ cloudwatch_region }}"
       awslogs-group: "{{ cloudwatch_log_group }}"
       awslogs-stream: "{{ application_name }}-{{ inventory_hostname }}"
-
-- name: Restart proxy
-  shell: 
-    cmd: docker restart proxy
